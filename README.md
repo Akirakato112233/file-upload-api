@@ -1,10 +1,12 @@
-# File Upload API — v1.0.0
+# File Upload & Products API — v2.0.0
 
-Backend สำหรับงาน Upload Files ด้วย Node.js, Express และ Multer
+Backend สำหรับงาน Upload Files และ Products CRUD ด้วย Node.js + Express, Multer และ Swagger UI
 
 **ลิงก์ส่งงาน:** https://github.com/Akirakato112233/file-upload-api
 
 **[ดูภาพหลักฐานและผลทดสอบบน Codespaces](evidence/README.md)** — curl ครบ 5 ข้อผ่านที่พอร์ต 3000 และ integration tests ผ่าน 9/9 กรณี
+
+**[ส่งงานข้อ 2: Products CRUD + Swagger UI](PRODUCTS_SUBMISSION.md)** — ภาพหน้า Swagger UI และผลทดสอบครบ 6 endpoints
 
 ## เริ่มใช้งานบน GitHub Codespaces
 
@@ -17,6 +19,7 @@ npm start
 ```
 
 เซิร์ฟเวอร์ใช้ `http://localhost:3000` ใน Codespace เปิด Terminal อีกหน้าสำหรับทดสอบ
+เปิด Swagger UI ที่ `http://localhost:3000/api-docs` หรือแท็บ Ports ของ Codespace; OpenAPI JSON อยู่ที่ `/api-docs.json`
 โฟลเดอร์ `.devcontainer` กำหนด Node.js 22 และ forward พอร์ต 3000 ไว้แล้ว
 ให้พอร์ตที่ forward เป็น **Private** ตามค่าเริ่มต้น: repository public ไม่จำเป็นต้องเปิด API ให้คนทั่วไปใช้
 
@@ -32,7 +35,26 @@ npm start
 ถ้าพอร์ต 3000 ถูกใช้แล้ว รัน `PORT=3300 npm start` และเปลี่ยน URL ทดสอบเป็นพอร์ต 3300
 ใช้ `npm run dev` เมื่อต้องการเริ่มเซิร์ฟเวอร์ใหม่อัตโนมัติหลังแก้โค้ด
 
-## Endpoints
+## Products CRUD และ Swagger UI (งานข้อ 2)
+
+| Method | Path | หน้าที่ | สำเร็จ |
+| --- | --- | --- | --- |
+| GET | `/api/products` | รายการสินค้า; ค้นด้วย `q`, `category`; แบ่งหน้าด้วย `page`, `limit` | 200 |
+| POST | `/api/products` | สร้างสินค้า | 201 |
+| GET | `/api/products/:id` | ดูสินค้าตาม id | 200 |
+| PUT | `/api/products/:id` | แทนที่ข้อมูลสินค้า; ต้องส่ง `name` และ `price` | 200 |
+| PATCH | `/api/products/:id` | แก้ไขเฉพาะฟิลด์ที่ส่งมา | 200 |
+| DELETE | `/api/products/:id` | ลบสินค้า | 204 |
+
+เปิด `/api-docs` แล้วใช้ **Try it out → Execute** สำหรับทดสอบใน Swagger UI
+`POST` และ `PUT` รับ JSON เช่น `{"name":"Desk lamp","price":799,"stock":4,"category":"electronics"}`
+`PATCH` ส่งเฉพาะฟิลด์ที่ต้องการ เช่น `{"price":699}`; category เลือก `electronics`, `books`, `fashion`
+ส่งข้อมูลผิดได้ 400; id ที่ไม่มีได้ 404; DELETE สำเร็จไม่มี response body
+เซิร์ฟเวอร์เริ่มด้วยสินค้าตัวอย่าง 2 รายการและเก็บข้อมูลในหน่วยความจำ; รีสตาร์ตแล้วจะกลับเป็นข้อมูลเริ่มต้น
+
+ทดสอบทั้ง 6 endpoint อัตโนมัติด้วย `npm run demo:products` ซึ่งใช้ `curl` และพิมพ์ HTTP status พร้อมผลลัพธ์
+
+## File Upload endpoints (งานข้อ 1)
 
 | Method | Path | หน้าที่ | สำเร็จ |
 | --- | --- | --- | --- |
@@ -46,7 +68,7 @@ npm start
 ใช้ `GET /api/files/multiple` สำหรับข้อ 3 ตามโจทย์ ส่วน `GET /api/files` สอดคล้องกับตัวอย่างในเอกสาร
 URL ใน JSON เป็น path สัมพัทธ์ ใช้กับ host ปัจจุบันได้ทั้ง localhost และ Codespaces
 
-## ทดสอบตามโจทย์ทั้ง 5 ข้อ
+## ทดสอบ File Upload ตามโจทย์ทั้ง 5 ข้อ
 
 มีไฟล์ตัวอย่าง `avatar.png`, `a.png`, `b.pdf` ใน repository แล้ว ให้รันจากโฟลเดอร์ราก
 
@@ -110,7 +132,7 @@ npm test
 ```
 
 ใช้ Node test runner และ HTTP จริงกับโฟลเดอร์ชั่วคราว ไม่แตะไฟล์ใน `uploads/` ของผู้ใช้
-ครอบคลุม upload/download/delete, รายการภาพ, ไฟล์ปลอม, rollback, ขนาดและจำนวนเกิน, ชื่อซ้ำ และ path traversal
+ครอบคลุม upload/download/delete, รายการภาพ, ไฟล์ปลอม, rollback, ขนาดและจำนวนเกิน, ชื่อซ้ำ, path traversal, CRUD สินค้า, validation, pagination และ Swagger UI
 
 ## โครงสร้าง
 
@@ -121,10 +143,15 @@ src/server.js                    เปิดพอร์ต
 src/middlewares/upload.js         Multer และตรวจเนื้อหาไฟล์
 src/middlewares/errorHandler.js   HTTP errors แบบ JSON
 src/routes/files.js              Routes ทั้งหมด
+src/routes/products.js           Products CRUD และ @openapi annotations
+src/config/swagger.js            OpenAPI schemas และ Swagger spec
 test/files.test.js               Integration tests
+test/products.test.js            Products และ Swagger integration tests
 scripts/demo.sh                  curl ทั้ง 5 ข้อและบันทึกผล
+scripts/products-demo.sh         curl ทั้ง 6 Products endpoints
 uploads/                         ไฟล์ที่รับเข้า (ไม่ commit)
 evidence/                        ผลทดสอบและภาพหลักฐาน
 ```
 
 อ้างอิง API ของ Multer: https://expressjs.com/en/resources/middleware/multer/
+Swagger UI: https://github.com/scottie1984/swagger-ui-express

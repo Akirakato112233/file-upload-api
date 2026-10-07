@@ -1,8 +1,8 @@
 {
   "name": "file-upload-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Node.js + Express + Multer file upload assignment",
+  "description": "Node.js + Express backend with Multer uploads and Swagger products CRUD",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -11,11 +11,14 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "test": "node --test",
-    "demo": "bash scripts/demo.sh"
+    "demo": "bash scripts/demo.sh",
+    "demo:products": "bash scripts/products-demo.sh"
   },
   "dependencies": {
     "express": "5.2.1",
     "file-type": "22.1.1",
-    "multer": "2.4.0"
+    "multer": "2.4.0",
+    "swagger-jsdoc": "6.3.0",
+    "swagger-ui-express": "5.0.1"
   }
 }
