@@ -1,0 +1,3 @@
+*.pdf binary
+*.png binary
+evidence/terminal-output.txt whitespace=cr-at-eol

@@ -1,0 +1,11 @@
+node_modules/
+uploads/*
+!uploads/.gitkeep
+.staging/
+.env
+.env.*
+!.env.example
+.DS_Store
+npm-debug.log*
+evidence/downloads/
+evidence/responses/

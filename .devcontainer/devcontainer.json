@@ -1,0 +1,9 @@
+{
+  "name": "File Upload API",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": { "label": "File Upload API", "onAutoForward": "notify" }
+  },
+  "postCreateCommand": "npm ci"
+}

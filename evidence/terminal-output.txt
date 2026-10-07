@@ -1,0 +1,42 @@
+File Upload API v1.0.0 | curl demonstration
+UTC: 2026-10-07T18:35:04Z
+Environment: local
+
+1. Single upload
+$ curl -F "file=@./avatar.png" http://localhost:3300/api/files
+
+HTTP 201
+{"filename":"43c84923-8c16-4c7b-9335-44cddb2496ac.png","originalName":"avatar.png","mimetype":"image/png","size":68,"url":"/api/files/43c84923-8c16-4c7b-9335-44cddb2496ac.png"}
+
+2. Multiple upload
+$ curl -F "files=@./a.png" -F "files=@./b.pdf" http://localhost:3300/api/files/multiple
+{"count":2,"files":[{"filename":"e67f0b3e-893f-4359-a079-a15488355126.png","originalName":"a.png","mimetype":"image/png","size":68,"url":"/api/files/e67f0b3e-893f-4359-a079-a15488355126.png"},{"filename":"4ba536a0-0e40-453c-b54d-f41ed2a611b0.pdf","originalName":"b.pdf","mimetype":"application/pdf","size":600,"url":"/api/files/4ba536a0-0e40-453c-b54d-f41ed2a611b0.pdf"}]}
+HTTP 201
+
+3. List images
+$ curl http://localhost:3300/api/files/multiple
+[{"filename":"43c84923-8c16-4c7b-9335-44cddb2496ac.png","size":68,"uploadedAt":"2026-10-07T18:35:04.607Z"},{"filename":"e67f0b3e-893f-4359-a079-a15488355126.png","size":68,"uploadedAt":"2026-10-07T18:35:04.666Z"}]
+HTTP 200
+
+4. Download
+$ curl -OJ http://localhost:3300/api/files/43c84923-8c16-4c7b-9335-44cddb2496ac.png
+PASS: downloaded bytes match avatar.png
+
+5. Delete
+$ curl -X DELETE -i http://localhost:3300/api/files/43c84923-8c16-4c7b-9335-44cddb2496ac.png
+HTTP/1.1 204 No Content
+X-Content-Type-Options: nosniff
+Date: Wed, 07 Oct 2026 18:35:04 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+
+PASS: deleted file now returns HTTP 404
+
+Uploads folder after the demonstration
+$ ls -lh uploads/
+total 16
+-rw-r--r--@ 1 akirakato  staff   600B Oct  8 01:35 4ba536a0-0e40-453c-b54d-f41ed2a611b0.pdf
+-rw-r--r--@ 1 akirakato  staff    68B Oct  8 01:35 e67f0b3e-893f-4359-a079-a15488355126.png
+
+PASS: all five curl operations completed
