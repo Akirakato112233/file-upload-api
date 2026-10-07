@@ -1,0 +1,27 @@
+
+> file-upload-api@2.0.0 demo:products
+> bash scripts/products-demo.sh
+
+
+1. GET /api/products
+HTTP 200
+{"data":[{"id":1,"name":"Wireless keyboard","price":1290,"stock":25,"category":"electronics","createdAt":"2026-10-07T19:22:22.815Z"},{"id":2,"name":"Node.js book","price":450,"stock":10,"category":"books","createdAt":"2026-10-07T19:22:22.815Z"}],"page":1,"limit":10,"total":2}
+
+2. POST /api/products
+HTTP 201
+{"id":5,"name":"Desk lamp","price":799,"stock":4,"category":"electronics","createdAt":"2026-10-07T19:28:29.984Z"}
+
+3. GET /api/products/5
+HTTP 200
+{"id":5,"name":"Desk lamp","price":799,"stock":4,"category":"electronics","createdAt":"2026-10-07T19:28:29.984Z"}
+
+4. PUT /api/products/5
+HTTP 200
+{"id":5,"name":"Updated lamp","price":899,"stock":5,"category":"electronics","createdAt":"2026-10-07T19:28:29.984Z"}
+
+5. PATCH /api/products/5
+HTTP 200
+{"id":5,"name":"Updated lamp","price":699,"stock":5,"category":"electronics","createdAt":"2026-10-07T19:28:29.984Z"}
+
+6. DELETE /api/products/5
+HTTP 204

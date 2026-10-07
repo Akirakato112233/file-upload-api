@@ -4,7 +4,7 @@ Backend สำหรับงาน Upload Files และ Products CRUD ด้�
 
 **ลิงก์ส่งงาน:** https://github.com/Akirakato112233/file-upload-api
 
-**[ดูภาพหลักฐานและผลทดสอบบน Codespaces](evidence/README.md)** — curl ครบ 5 ข้อผ่านที่พอร์ต 3000 และ integration tests ผ่าน 9/9 กรณี
+**[ดูภาพหลักฐานงานข้อ 1 บน Codespaces](evidence/README.md)** — curl ครบ 5 ข้อผ่านที่พอร์ต 3000 และ integration tests ของ v1.0.0 ผ่าน 9/9 กรณี
 
 **[ส่งงานข้อ 2: Products CRUD + Swagger UI](PRODUCTS_SUBMISSION.md)** — ภาพหน้า Swagger UI และผลทดสอบครบ 6 endpoints
 
