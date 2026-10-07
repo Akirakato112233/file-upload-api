@@ -1,10 +1,11 @@
-# สถานะหลักฐาน
+# หลักฐานการทดสอบบน GitHub Codespaces
 
-ผลใน `terminal-output.txt` เป็นผลการรันจริง **ในเครื่อง local** ที่พอร์ต 3300
-เมื่อวันที่ 8 ตุลาคม 2026 (เวลาไทย) เนื่องจาก Docker ใช้พอร์ต 3000 และ 3001 อยู่
-ไม่ใช่ผลจาก Codespaces
-
-ผลที่ได้:
+- Repository public: https://github.com/Akirakato112233/file-upload-api
+- เวอร์ชัน API: **1.0.0**
+- Codespace: `automatic-space-cod-g46qprjwj67gf9qr5`
+- วันที่ทดสอบ: **8 ตุลาคม 2026 เวลา 01:47 น. ประเทศไทย** (7 ตุลาคม 2026 เวลา 18:47 UTC)
+- API ที่ทดสอบ: `http://localhost:3000`
+- ผลลัพธ์ข้อความจริง: [terminal-output.txt](terminal-output.txt)
 
 | ข้อ | การทดสอบ | ผล |
 | --- | --- | --- |
@@ -14,15 +15,21 @@
 | 4 | ดาวน์โหลด | ไบต์ตรงกับ avatar.png โดยตรวจด้วย cmp |
 | 5 | ลบ | HTTP 204 และดาวน์โหลดซ้ำได้ 404 |
 
-Integration tests: ผ่าน 9/9 กรณี
+Integration tests บน Codespaces: **ผ่าน 9/9 กรณี**
 
-## หลักฐานที่ยังต้องทำบน Codespaces
+## ภาพคำสั่งและผลลัพธ์ทั้ง 5 ข้อ
 
-1. สร้าง public GitHub repository และ Codespace หลังล็อกอิน GitHub
-2. รัน `npm start` ใน Terminal แรก แล้ว `npm run demo` ใน Terminal ที่สอง
-3. ถ่ายภาพคำสั่งและผลลัพธ์ข้อ 1–3 และข้อ 4–5 ให้เห็น URL ของ Codespace
-4. ขยายโฟลเดอร์ `uploads` ใน Explorer ให้เห็นไฟล์ PNG และ PDF ที่เหลือจากข้อ 2 แล้วถ่ายภาพ
-5. เพิ่มภาพลงโฟลเดอร์ `evidence`, commit และ push ผลจาก Codespace
+ภาพหน้าจอจริงจาก Codespaces Terminal หลังรัน `npm run demo`
+สคริปต์เรียก `curl` ทั้ง 5 ข้อ แสดงคำสั่งที่ใช้ และบันทึกผลลงไฟล์ข้อความ
 
-การรัน demo อีกครั้งจะเขียน `terminal-output.txt` ใหม่โดยแสดงชื่อ Codespace จริงผ่าน `CODESPACE_NAME`
-ไม่ต้อง commit ไฟล์ใน `uploads/`, `evidence/downloads/` หรือ `evidence/responses/`
+![ผล curl ทั้ง 5 ข้อบน Codespaces](01-codespaces-curl-tests.png)
+
+## ภาพโฟลเดอร์ uploads
+
+หลังลบไฟล์จากข้อ 1 แล้ว จะเหลือ PNG และ PDF ที่อัปโหลดในข้อ 2
+ภาพแสดงทั้ง Explorer และผล `ls -lh uploads/` ภายใน Codespace เดียวกัน
+
+![โฟลเดอร์ uploads ใน Codespaces](02-codespaces-uploads-folder.png)
+
+ไฟล์ที่อัปโหลดจริงอยู่ใน Codespace และถูก ignore จาก Git ตามการออกแบบ
+ส่วนภาพหน้าจอและผลการทดสอบถูก commit เพื่อเปิดดูหลักฐานได้แม้ Codespace หยุดทำงาน

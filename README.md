@@ -2,6 +2,10 @@
 
 Backend สำหรับงาน Upload Files ด้วย Node.js, Express และ Multer
 
+**ลิงก์ส่งงาน:** https://github.com/Akirakato112233/file-upload-api
+
+**[ดูภาพหลักฐานและผลทดสอบบน Codespaces](evidence/README.md)** — curl ครบ 5 ข้อผ่านที่พอร์ต 3000 และ integration tests ผ่าน 9/9 กรณี
+
 ## เริ่มใช้งานบน GitHub Codespaces
 
 1. เปิด repository แล้วเลือก **Code → Codespaces → Create codespace on main** (หรือ branch ที่มีโค้ดนี้)
